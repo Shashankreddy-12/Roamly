@@ -1,0 +1,81 @@
+.profile-avatar{
+    width:90px;
+    height:90px;
+    min-width:90px;
+    border-radius:50%;
+    background:#fe424d;
+    color:white;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    font-size:2.2rem;
+    font-weight:700;
+}
+
+.stat-card{
+    border:none;
+    box-shadow:0 .125rem .25rem rgba(0,0,0,.075);
+}
+
+.stat-card:hover{
+    transform:translateY(-5px);
+}
+
+.section h3{
+    font-weight:700;
+}
+
+.section{
+    margin-top:3rem;
+}
+
+.section .card{
+
+    border-radius:18px;
+
+}
+
+.section img{
+    border-top-left-radius:18px;
+    border-bottom-left-radius:18px;
+    object-fit:cover;
+}
+/* for wishlist */
+
+.profile-page .card-img-top{
+    border-top-left-radius:16px;
+    border-top-right-radius:16px;
+    height:200px;
+    object-fit:cover;
+}
+
+.profile-page .card{
+    border-radius:16px;
+    overflow:hidden;
+}
+
+/* reviews section */
+.review-card{
+    transition:0.25s ease;
+    height: 100%;
+}
+
+.review-card:hover{
+    transform:translateY(-4px);
+}
+
+.review-card blockquote{
+    font-style:italic;
+    color:#555;
+}
+
+@media (max-width:768px){
+    .profile-avatar{
+        margin:auto;
+    }
+    .section h3{
+        text-align:center;
+    }
+}

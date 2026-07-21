@@ -1,0 +1,100 @@
+<% layout("/layouts/boilerplate") %>
+
+    <body>
+        <div class="row justify-content-center">
+
+            <div class="col-12 col-md-10 col-lg-8 col-xl-7">
+
+                <div class="card border-0 shadow-sm rounded-4">
+
+                    <div class="card-body p-4 p-md-5">
+                        <form method="POST" action="/listings/<%= listing._id %>?_method=PUT"
+                            enctype="multipart/form-data" novalidate class="needs-validation">
+                            <h2 class="fw-bold mb-2">
+                                Update Your Listing
+                            </h2>
+
+                            <p class="text-muted mb-4">
+                                Keep your listing information accurate for future guests.
+                            </p>
+                            <div class="row">
+                                <div class="mb-3 col-md-9">
+                                    <label for="title" class="form-label"><b>Title</b></label>
+                                    <input type="text" name="listing[title]" class="form-select"
+                                        placeholder="enter the name of your listing" value="<%= listing.title %>"
+                                        required>
+                                    <div class="invalid-feedback">No name for your property? Thats wierd!</div>
+                                </div>
+                                <div class="mb-3 col-md-3">
+                                    <label class="form-label">Category</label>
+                                    <select name="listing[category]" class="form-select">
+                                        <option value="Farms" <%= listing.category === "Farms" ? "selected" : "" %>>
+                                            Farms
+                                        </option>
+                                        <option value="Rooms" <%= listing.category=== "Rooms" ? "selected" : "" %>>Rooms
+                                        </option>
+                                        <option value="Amazing Views" <%= listing.category=== "Amazing Views" ? "selected"
+                                            : "" %>>Amazing Views</option>
+                                        <option value="Iconic Cities" <%= listing.category=== "Iconic Cities" ? "selected"
+                                            : "" %>>Iconic Cities</option>
+                                        <option value="Surfing" <%= listing.category=== "Surfing" ? "selected" : "" %>
+                                            >Surfing</option>
+                                        <option value="Amazing Pools" <%= listing.category=== "Amazing Pools" ? "selected"
+                                            : "" %>>Amazing Pools</option>
+                                        <option value="Beach" <%= listing.category=== "Beach" ? "selected" : "" %>>Beach
+                                        </option>
+                                        <option value="Cabins" <%= listing.category=== "Cabins" ? "selected" : "" %>
+                                            >Cabins</option>
+                                        <option value="OMG!" <%= listing.category=== "OMG!" ? "selected" : "" %>>OMG!
+                                        </option>
+                                        <option value="Lakefront" <%= listing.category=== "Lakefront" ? "selected" : "" %>
+                                            >Lakefront</option>
+                                    </select>
+                                </div>
+
+                            </div>
+                            <div class="mb-3">
+                                <label for="description" class="form-label"><b>Description</b></label>
+                                <textarea type="text" class="form-select" rows="5" name="listing[description]"
+                                    required><%= listing.description %></textarea>
+                            </div>
+
+                            <div class="mb-3">
+                                <p><b>Current Image</b></p>
+                                <img src="<%= imageurl %>" class="img-fluid rounded-3 shadow-sm mb-3"
+                                    style="max-height:250px; object-fit:cover;">
+                            </div>
+                            <div class="row">
+                                <div class="mb-3 col-md-8">
+                                    <label for="image" class="form-label"><b>Upload Image</b></label>
+                                    <input type="file" class="form-select form-select-lg" name="listing[image]">
+                                </div>
+                                <div class="mb-3 col-md-4">
+                                    <label for="Price" class="form-label"><b>Price</b></label>
+                                    <input type="number" class="form-select" name="listing[price]"
+                                        value="<%= listing.price %>" required>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="mb-3 col-md-6">
+                                    <label for="Location" class="form-label"><b>Location</b></label>
+                                    <input type="text" class="form-select" name="listing[location]"
+                                        value="<%= listing.location %>" required>
+                                </div>
+                                <br><br>
+                                <div class="mb-3 col-md-6">
+                                    <label for="country" class="form-label"><b>Country</b></label>
+                                    <input type="text" class="form-select" name="listing[country]"
+                                        value="<%= listing.country %>" required>
+                                </div>
+                            </div>
+                            <br>
+                            <button class="btn w-100 py-2 fw-semibold edit-btn">Edit</button>
+                            <br>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br><br>
+    </body>

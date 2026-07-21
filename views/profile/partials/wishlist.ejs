@@ -1,0 +1,102 @@
+<div class="section mb-5">
+
+    <div class="d-flex justify-content-between align-items-center mb-3">
+
+        <h3>❤️ Wishlist</h3>
+
+        <a href="/profile/wishlist" class="text-decoration-none">
+            View All →
+        </a>
+
+    </div>
+
+    <% if(user.wishlist.length === 0){ %>
+
+        <div class="card shadow-sm border-0">
+
+            <div class="card-body text-center py-5">
+
+                <i class="fa-regular fa-heart fs-1 text-secondary mb-3"></i>
+
+                <h5>Your wishlist is empty.</h5>
+
+                <p class="text-muted">
+                    Save your favourite places to find them easily later.
+                </p>
+
+                <a href="/listings"
+                   class="btn btn-danger">
+
+                    Explore Listings
+
+                </a>
+
+            </div>
+
+        </div>
+
+    <% } else { %>
+
+        <div class="row">
+
+            <% user.wishlist.slice(0,3).forEach(listing => { %>
+
+                <div class="col-lg-4 col-md-6 mb-4">
+
+                    <div class="card shadow-sm border-0 h-100">
+
+                        <img
+                            src="<%= listing.image.url %>"
+                            class="card-img-top"
+                            style="height:220px; object-fit:cover;"
+                        >
+
+                        <div class="card-body">
+
+                            <h5>
+
+                                <%= listing.title %>
+
+                            </h5>
+
+                            <p class="text-muted">
+
+                                📍
+                                <%= listing.location %>,
+                                <%= listing.country %>
+
+                            </p>
+
+                            <p>
+
+                                <strong>
+
+                                    ₹<%= listing.price.toLocaleString("en-IN") %>
+
+                                </strong>
+
+                                / night
+
+                            </p>
+
+                            <a
+                                href="/listings/<%= listing._id %>"
+                                class="btn btn-outline-dark w-100">
+
+                                View Listing
+
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            <% }) %>
+
+        </div>
+
+    <% } %>
+
+</div>

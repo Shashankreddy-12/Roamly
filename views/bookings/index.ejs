@@ -1,0 +1,139 @@
+<% layout("/layouts/boilerplate") %>
+
+    <div class="container py-4 booking-history-page">
+
+        <h2 class="mb-4">My Bookings</h2>
+
+        <% if(bookings.length===0){ %>
+
+            <div class="text-center mt-5">
+
+                <h4 class="fw-bold">No bookings yet</h4>
+
+                <p class="text-muted mb-4">
+                    Start exploring amazing stays and book your next trip.
+                </p>
+
+                <a href="/listings" class="btn btn-danger">
+                    Explore Listings
+                </a>
+
+            </div>
+
+            <% } else { %>
+
+                <% bookings.forEach(booking=> { %>
+
+                    <div class="card mb-4 shadow-sm border-0 rounded-4">
+
+                        <div class="row g-0">
+
+                            <div class="col-lg-4">
+
+                                <img src="<%= booking.listing.image.url %>" class="img-fluid rounded-start"
+                                    style="height:240px; width:100%; object-fit:cover;">
+
+                            </div>
+
+                            <div class="col-lg-8">
+
+                                <div class="card-body">
+
+                                    <h4 class="card-title fw-bold mb-2">
+                                        <%= booking.listing.title %>
+                                    </h4>
+
+                                    <p class="text-muted">
+                                        📍
+                                        <%= booking.listing.location %>,
+                                            <%= booking.listing.country %>
+                                    </p>
+
+                                    <hr>
+
+                                    <div class="row">
+
+                                        <div class="col-md-6">
+
+                                            <p>
+                                                <strong>Check-in:</strong>
+                                                <%= booking.checkIn.toLocaleDateString("en-GB", { day:"numeric",
+                                                    month:"short", year:"numeric" }) %>
+                                            </p>
+
+                                            <p>
+                                                <strong>Check-out:</strong>
+                                                <%= booking.checkOut.toLocaleDateString("en-GB", { day:"numeric",
+                                                    month:"short", year:"numeric" }) %>
+                                            </p>
+
+                                        </div>
+
+                                        <div class="col-md-6">
+
+                                            <p>
+                                                <strong>Guests:</strong>
+                                                <%= booking.guests %>
+                                            </p>
+
+                                            <p>
+                                                <strong>Nights:</strong>
+                                                <%= booking.nights %>
+                                            </p>
+
+                                            <p class="mb-0">
+                                                <strong>Total</strong>
+                                                <span class="fs-5 fw-bold">
+                                                ₹<%= booking.totalPrice.toLocaleString("en-IN") %>
+                                                </span>
+                                            </p>
+
+                                        </div>
+
+                                    </div>
+
+                                    <div class="d-flex justify-content-between align-items-center mt-3">
+
+                                        <% if(booking.status==="confirmed" ){ %>
+
+                                            <span class="badge bg-success px-3 py-2">
+                                                Confirmed
+                                            </span>
+
+                                            <form action="/profile/bookings/<%= booking._id %>/cancel?_method=PUT"
+                                                method="POST">
+
+                                                <button class="btn btn-outline-danger"
+                                                    onclick="return confirm('Cancel this booking?');">
+                                                    Cancel Booking
+                                                </button>
+
+                                            </form>
+
+                                            <% } else { %>
+
+                                                <span class="badge bg-danger px-3 py-2">
+                                                    Cancelled
+                                                </span>
+
+                                                <!-- <button class="btn btn-outline-secondary" disabled>
+                                                    Cancelled
+                                                </button> -->
+
+                                                <% } %>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <% }) %>
+
+                        <% } %>
+
+    </div>

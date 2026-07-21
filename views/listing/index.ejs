@@ -1,0 +1,320 @@
+<% layout("/layouts/boilerplate") %>
+    <style>
+        .filters {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: white;
+            padding: .0rem 1rem;
+            /* border-bottom: 1px solid #ececec; */
+
+            /* position: sticky; */
+            top: 80px;
+            z-index: 1020;
+        }
+
+        .categories {
+            display: flex;
+            align-items: center;
+            overflow-x: auto;
+            white-space: nowrap;
+            flex: 1;
+        }
+
+        .categories::-webkit-scrollbar {
+            display: none;
+        }
+
+        .categories {
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+
+        .filter {
+            flex: 0 0 auto;
+            margin-right: 2rem;
+            margin-top: 1rem;
+        }
+
+        .filter a {
+            text-decoration: none;
+            color: black;
+            opacity: 0.6;
+        }
+
+        .filter a:hover {
+            opacity: 1;
+            cursor: pointer;
+        }
+
+        .filter p {
+            font-size: 0.8rem;
+        }
+
+        .active-filter {
+            opacity: 1;
+            border-bottom: 2px solid black;
+        }
+
+        .price-filter {
+            margin-left: 1rem;
+            padding-left: 1rem;
+        }
+
+        @media(max-width:768px) {
+            .filters {
+                position: static;
+            }
+        }
+
+        /* Tablet */
+        @media (min-width:769px) and (max-width:1199px) {
+
+            .filters {
+                display: block;
+            }
+
+            .categories {
+                margin-bottom: 1rem;
+            }
+
+            .price-filter {
+                width: 100%;
+            }
+
+            .price-filter form {
+                display: flex;
+                justify-content: flex-end;
+                gap: .75rem;
+            }
+
+            .price-filter input {
+                width: 180px;
+            }
+
+        }
+
+        @media(max-width:768px) {
+
+            .filters {
+                display: block;
+            }
+
+            .categories {
+                margin-bottom: 12px;
+            }
+
+            .price-filter form {
+                display: flex;
+                gap: .5rem;
+            }
+
+            .price-filter input {
+                flex: 1;
+            }
+
+        }
+
+        .pagination .page-link {
+            color: #fe424d;
+        }
+
+        .pagination .page-link:hover {
+            color: #d6333c;
+        }
+
+        .pagination .page-item.active .page-link {
+            background-color: #fe424d;
+            border-color: #fe424d;
+            color: white;
+        }
+    </style>
+
+    <body>
+        <% const preservedFilters=new URLSearchParams({ search: filters.search, minPrice: filters.minPrice, maxPrice:
+            filters.maxPrice }).toString(); %>
+            <div class="filters">
+                <div class="categories">
+                    <div class="filter <%= category === 'Beach' ? 'active-filter' : '' %>">
+                        <a href="/listings?<%= preservedFilters %>&category=Beach">
+                            <i class="fa-solid fa-umbrella-beach"></i>
+                            <p>Beach</p>
+                        </a>
+                    </div>
+                    <div class="filter <%= category === 'Cabins' ? 'active-filter' : '' %>">
+                        <a href="/listings?<%= preservedFilters %>&category=Cabins">
+                            <i class="fa-solid fa-house"></i>
+                            <p>Cabins</p>
+                        </a>
+                    </div>
+                    <div class="filter <%= category === 'Amazing Pools' ? 'active-filter' : '' %>">
+                        <a href="/listings?<%= preservedFilters %>&category=Amazing Pools">
+                            <i class="fa-solid fa-water-ladder"></i>
+                            <p>Pools</p>
+                        </a>
+                    </div>
+                    <div class="filter <%= category === 'Farms' ? 'active-filter' : '' %>">
+                        <a href="/listings?<%= preservedFilters %>&category=Farms">
+                            <i class="fa-solid fa-wheat-awn"></i>
+                            <p>Farms</p>
+                        </a>
+                    </div>
+
+                    <div class="filter <%= category === 'Rooms' ? 'active-filter' : '' %>">
+                        <a href="/listings?<%= preservedFilters %>&category=Rooms">
+                            <i class="fa-solid fa-bed"></i>
+                            <p>Rooms</p>
+                        </a>
+                    </div>
+
+                    <div class="filter <%= category === 'Amazing Views' ? 'active-filter' : '' %>">
+                        <a href="/listings?<%= preservedFilters %>&category=Amazing Views">
+                            <i class="fa-solid fa-mountain-sun"></i>
+                            <p>Views</p>
+                        </a>
+                    </div>
+
+                    <div class="filter <%= category === 'Iconic Cities' ? 'active-filter' : '' %>">
+                        <a href="/listings?<%= preservedFilters %>&category=Iconic Cities">
+                            <i class="fa-solid fa-city"></i>
+                            <p>Cities</p>
+                        </a>
+                    </div>
+
+                    <div class="filter <%= category === 'Surfing' ? 'active-filter' : '' %>">
+                        <a href="/listings?<%= preservedFilters %>&category=Surfing">
+                            <i class="fa-solid fa-person-swimming"></i>
+                            <p>Surfing</p>
+                        </a>
+                    </div>
+
+                    <div class="filter <%= category === 'OMG!' ? 'active-filter' : '' %>">
+                        <a href="/listings?<%= preservedFilters %>&category=OMG!">
+                            <i class="fa-solid fa-fire"></i>
+                            <p>OMG!</p>
+                        </a>
+                    </div>
+
+                    <div class="filter <%= category === 'Lakefront' ? 'active-filter' : '' %>">
+                        <a href="/listings?<%= preservedFilters %>&category=Lakefront">
+                            <i class="fa-solid fa-water"></i>
+                            <p>Lakefront</p>
+                        </a>
+                    </div>
+                </div>
+                <div class="price-filter">
+                    <form action="/listings" method="GET" class="d-flex gap-2">
+
+                        <input type="hidden" name="search" value="<%= filters.search %>">
+                        <input type="hidden" name="category" value="<%= filters.category %>">
+
+                        <input type="number" name="minPrice" class="form-control" placeholder="Min Price"
+                            value="<%= filters.minPrice %>">
+
+                        <input type="number" name="maxPrice" class="form-control" placeholder="Max Price"
+                            value="<%= filters.maxPrice %>">
+                        <button class="btn btn-dark" style="background-color: #fe424d;">
+                            Apply
+                        </button>
+
+                    </form>
+                </div>
+            </div>
+            <%if(alllistings.length==0) {%>
+                <div class="text-center py-5">
+
+                    <i class="fa-solid fa-magnifying-glass fs-1 text-secondary mb-3"></i>
+
+                    <h4>No listings matched your filters.</h4>
+
+                    <p class="text-muted">
+                        Try changing your search or removing some filters.
+                    </p>
+
+                    <a href="/listings" class="btn btn-danger">
+                        Clear Filters
+                    </a>
+
+                </div>
+                <%} else {%>
+                    <div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1 mt-1">
+                        <% for(let listing of alllistings) { %>
+                            <a href="/listings/<%= listing._id %>" class="show-listing-link">
+                                <div class="card listing-card">
+                                    <img src="<%=listing.image.url %>" class="card-img-top card-ind" alt="image"
+                                        style="height: 16rem;">
+                                    <!-- <div class="card-img-overlay">hello</div>      she used this to show the hover effect on a particular listing. in css, when hovered then opacity is made 0.2 and background color as white. but i used differntly. i used hover on the img itself -->
+                                    <div class="card-body">
+                                        <p class="card-text">
+                                            <b>
+                                                <%=listing.title %>
+                                            </b> <br>
+                                            <%=listing.location %> <br>
+                                                <%=listing.country %> <br>
+                                                    <!-- <%=listing.description %> <br> -->
+                                                    &#8377;<b><%=listing.price.toLocaleString("en-IN") %></b> / night
+                                                    <br>
+                                        </p>
+                                    </div>
+                                </div>
+                            </a>
+                            <% } %>
+                    </div>
+                    <% } %>
+
+
+                        <% const params=new URLSearchParams(queryParams); %>
+
+                            <% if(totalPages> 1){ %>
+
+                                <nav aria-label="Listings pagination" class="mt-5">
+
+                                    <ul class="pagination justify-content-center">
+
+                                        <!-- Previous -->
+
+                                        <li class="page-item <%= currentPage === 1 ? 'disabled' : '' %>">
+
+                                            <a class="page-link"
+                                                href="/listings?<%= params.toString() %>&page=<%= currentPage-1 %>">
+                                                Previous
+                                            </a>
+
+                                        </li>
+
+                                        <!-- Page Numbers -->
+
+                                        <% for(let i=1; i <=totalPages; i++){ %>
+
+                                            <li
+                                                class="page-item <%= currentPage === i ? 'active' : '' %> <%= currentPage === i ? 'disabled' : '' %>">
+
+                                                <a class="page-link"
+                                                    href="/listings?<%= params.toString() %>&page=<%= i %>">
+
+                                                    <%= i %>
+
+                                                </a>
+
+                                            </li>
+
+                                            <% } %>
+
+                                                <!-- Next -->
+
+                                                <li
+                                                    class="page-item <%= currentPage === totalPages ? 'disabled' : '' %>">
+
+                                                    <a class="page-link"
+                                                        href="/listings?<%= params.toString() %>&page=<%= currentPage+1 %>">
+                                                        Next
+                                                    </a>
+
+                                                </li>
+
+                                    </ul>
+
+                                </nav>
+
+                                <% } %>
+    </body>

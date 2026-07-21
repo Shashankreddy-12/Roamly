@@ -1,0 +1,1122 @@
+<% layout("/layouts/boilerplate") %>
+
+<%
+const isLoggedIn = !!loggeduser;
+const isOwner = isLoggedIn && loggeduser._id.equals(listing.owner._id);
+const isVisitor = isLoggedIn && !isOwner;
+const isGuest = !isLoggedIn;
+%>
+
+<script>
+    const maptoken = "<%= process.env.MAP_TOKEN %>";
+    const coordinates = <%- JSON.stringify(listing.geometry.coordinates) %>;
+    const pricePerNight = <%= listing.price %>;
+    const title = "<%= listing.title %>";
+</script>
+
+<div class="container show-page py-4">
+
+    <!-- ================= HERO ================= -->
+
+    <section class="listing-hero mb-5">
+
+        <div class="d-flex justify-content-between align-items-start flex-wrap gap-3">
+
+            <!-- Left -->
+
+            <div>
+
+                <h1 class="display-6 fw-bold mb-2">
+
+                    <%= listing.title %>
+
+                </h1>
+
+                <div class="d-flex flex-wrap align-items-center gap-2 text-muted">
+
+                    <span>
+
+                        <i class="fa-solid fa-location-dot me-1"></i>
+
+                        <%= listing.location %>,
+                        <%= listing.country %>
+
+                    </span>
+
+                    <span>•</span>
+
+                    <span>
+
+                        Hosted by
+                        <strong>
+
+                            <%= listing.owner.username %>
+
+                        </strong>
+
+                    </span>
+
+                    <span>•</span>
+
+                    <span class="badge bg-light text-dark border">
+
+                        <%= listing.category %>
+
+                    </span>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- Wishlist -->
+
+            <% if(isVisitor){ %>
+
+                <% if(isWishlisted){ %>
+
+                    <form
+                        action="/wishlist/<%= listing._id %>?_method=DELETE"
+                        method="POST">
+
+                        <button
+                            class="btn btn-outline-danger rounded-circle wishlist-btn"
+                            aria-label="Remove from wishlist">
+
+                            <i class="fa-solid fa-heart"></i>
+
+                        </button>
+
+                    </form>
+
+                <% } else { %>
+
+                    <form
+                        action="/wishlist/<%= listing._id %>"
+                        method="POST">
+
+                        <button
+                            class="btn btn-outline-danger rounded-circle wishlist-btn"
+                            aria-label="Add to wishlist">
+
+                            <i class="fa-regular fa-heart"></i>
+
+                        </button>
+
+                    </form>
+
+                <% } %>
+
+            <% } %>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- ================= MAIN CONTENT ================= -->
+
+    <section>
+
+        <div class="row g-4">
+
+            <!-- ================= LEFT COLUMN ================= -->
+
+            <div class="col-lg-8">
+
+                <div class="card border-0 shadow-sm rounded-4 overflow-hidden listing-card">
+
+                    <!-- IMAGE -->
+
+                    <img
+                        src="<%= listing.image.url %>"
+                        alt="<%= listing.title %>"
+                        class="card-img-top show-img">
+
+                    <div class="card-body p-4">
+
+                        <!-- ABOUT -->
+
+                        <section class="mb-5">
+
+                            <h3 class="fw-bold mb-3">
+
+                                About this place
+
+                            </h3>
+
+                            <p class="listing-description mb-0">
+
+                                <%= listing.description %>
+
+                            </p>
+
+                        </section>
+
+                        <hr>
+
+                        <!-- HOST -->
+
+                        <section class="py-2">
+
+                            <div class="d-flex align-items-center">
+
+                                <div class="host-avatar">
+
+                                    <i class="fa-solid fa-user"></i>
+
+                                </div>
+
+                                <div class="ms-3">
+
+                                    <h5 class="fw-bold mb-1">
+
+                                        Hosted by
+                                        <%= listing.owner.username %>
+
+                                    </h5>
+
+                                    <p class="text-muted mb-0">
+
+                                        Property Owner
+
+                                    </p>
+
+                                </div>
+
+                            </div>
+
+                        </section>
+
+                        <hr>
+
+                        <!-- PROPERTY DETAILS -->
+
+                        <section>
+
+                            <h4 class="fw-bold mb-4">
+
+                                Property Details
+
+                            </h4>
+
+                            <div class="row g-3">
+                                                                <!-- LOCATION -->
+
+                                <div class="col-md-6">
+
+                                    <div class="detail-box">
+
+                                        <i class="fa-solid fa-location-dot detail-icon"></i>
+
+                                        <div>
+
+                                            <small class="text-muted d-block">
+
+                                                Location
+
+                                            </small>
+
+                                            <strong class="d-block">
+
+                                                <%= listing.location %>
+
+                                            </strong>
+
+                                            <span class="text-muted">
+
+                                                <%= listing.country %>
+
+                                            </span>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                                <!-- CATEGORY -->
+
+                                <div class="col-md-6">
+
+                                    <div class="detail-box">
+
+                                        <i class="fa-solid fa-tag detail-icon"></i>
+
+                                        <div>
+
+                                            <small class="text-muted d-block">
+
+                                                Category
+
+                                            </small>
+
+                                            <strong>
+
+                                                <%= listing.category %>
+
+                                            </strong>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                                <!-- PRICE -->
+
+                                <div class="col-md-6">
+
+                                    <div class="detail-box">
+
+                                        <i class="fa-solid fa-indian-rupee-sign detail-icon"></i>
+
+                                        <div>
+
+                                            <small class="text-muted d-block">
+
+                                                Price
+
+                                            </small>
+
+                                            <strong>
+
+                                                ₹<%= listing.price.toLocaleString("en-IN") %>
+
+                                            </strong>
+
+                                            <span class="text-muted">
+
+                                                / night
+
+                                            </span>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                                <!-- HOST -->
+
+                                <div class="col-md-6">
+
+                                    <div class="detail-box">
+
+                                        <i class="fa-solid fa-house-user detail-icon"></i>
+
+                                        <div>
+
+                                            <small class="text-muted d-block">
+
+                                                Host
+
+                                            </small>
+
+                                            <strong>
+
+                                                <%= listing.owner.username %>
+
+                                            </strong>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </section>
+
+
+
+                        <% if(isOwner){ %>
+
+                        <hr>
+
+                        <section class="pt-2">
+
+                            <div
+                                class="d-flex align-items-center justify-content-between flex-wrap gap-3">
+
+                                <div>
+
+                                    <h4 class="fw-bold mb-1">
+
+                                        Listed by You
+
+                                    </h4>
+
+                                    <p class="text-muted mb-0">
+
+                                        Manage this property from the Owner Dashboard.
+
+                                    </p>
+
+                                </div>
+
+                                <span
+                                    class="badge bg-success fs-6 px-3 py-2">
+
+                                    Active
+
+                                </span>
+
+                            </div>
+
+                        </section>
+
+                        <% } %>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- ================= RIGHT SIDEBAR ================= -->
+
+            <div class="col-lg-4">
+
+                <!-- OWNER -->
+
+                <% if(isOwner){ %>
+
+                <div class="owner-sidebar">
+
+                    <div class="card border-0 shadow rounded-4">
+
+                        <div class="card-body p-4">
+
+                            <div class="text-center">
+
+                                <div class="owner-icon mb-3">
+
+                                    <i class="fa-solid fa-house-user"></i>
+
+                                </div>
+
+                                <h3 class="fw-bold">
+
+                                    Owner Dashboard
+
+                                </h3>
+
+                                <p class="text-muted">
+
+                                    Manage your property.
+
+                                </p>
+
+                            </div>
+
+                            <hr>
+
+                            <div class="dashboard-item">
+
+                                <span>Status</span>
+
+                                <span class="badge bg-success">
+
+                                    Active
+
+                                </span>
+
+                            </div>
+
+                            <div class="dashboard-item">
+
+                                <span>Category</span>
+
+                                <strong>
+
+                                    <%= listing.category %>
+
+                                </strong>
+
+                            </div>
+
+                            <div class="dashboard-item">
+
+                                <span>Location</span>
+
+                                <strong>
+
+                                    <%= listing.location %>
+
+                                </strong>
+
+                            </div>
+
+                            <div class="dashboard-item">
+
+                                <span>Price</span>
+
+                                <strong>
+
+                                    ₹<%= listing.price.toLocaleString("en-IN") %>
+
+                                </strong>
+
+                            </div>
+
+                            <hr>
+
+                            <div class="d-grid gap-2">
+
+                                <a
+                                    href="/listings/<%= listing._id %>/edit"
+                                    class="btn btn-danger">
+
+                                    <i class="fa-solid fa-pen me-2"></i>
+
+                                    Edit Listing
+
+                                </a>
+
+                                <form
+                                    action="/listings/<%= listing._id %>?_method=DELETE"
+                                    method="POST">
+
+                                    <button
+                                        class="btn btn-outline-danger w-100">
+
+                                        <i class="fa-solid fa-trash me-2"></i>
+
+                                        Delete Listing
+
+                                    </button>
+
+                                </form>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <% } %>
+
+
+
+                <!-- VISITOR -->
+
+                <% if(isVisitor){ %>
+
+                <div class="booking-sidebar">
+
+                    <div class="card border-0 shadow rounded-4">
+
+                        <div class="card-body p-4">
+
+                            <h3 class="fw-bold mb-0">
+
+                                ₹<%= listing.price.toLocaleString("en-IN") %>
+
+                            </h3>
+
+                            <p class="text-muted mb-3">
+
+                                per night
+
+                            </p>
+
+                            <hr>
+
+                            <form
+                                action="/listings/<%= listing._id %>/bookings"
+                                method="POST">
+                                                                <div class="mb-3">
+
+                                    <label class="form-label">
+
+                                        Check In
+
+                                    </label>
+
+                                    <input
+                                        type="date"
+                                        id="checkIn"
+                                        name="checkIn"
+                                        class="form-control"
+                                        min="<%= new Date().toISOString().split('T')[0] %>"
+                                        required>
+
+                                </div>
+
+                                <div class="mb-3">
+
+                                    <label class="form-label">
+
+                                        Check Out
+
+                                    </label>
+
+                                    <input
+                                        type="date"
+                                        id="checkOut"
+                                        name="checkOut"
+                                        class="form-control"
+                                        min="<%= new Date().toISOString().split('T')[0] %>"
+                                        required>
+
+                                </div>
+
+                                <div class="mb-4">
+
+                                    <label class="form-label">
+
+                                        Guests
+
+                                    </label>
+
+                                    <select
+                                        name="guests"
+                                        class="form-select">
+
+                                        <% for(let i=1;i<=10;i++){ %>
+
+                                            <option value="<%= i %>">
+
+                                                <%= i %>
+
+                                            </option>
+
+                                        <% } %>
+
+                                    </select>
+
+                                </div>
+
+                                <!-- Booking Summary -->
+
+                                <div
+                                    id="bookingSummary"
+                                    class="border rounded-3 bg-light p-3 mb-3 d-none">
+
+                                    <div
+                                        class="d-flex justify-content-between">
+
+                                        <span>
+
+                                            Nights
+
+                                        </span>
+
+                                        <strong id="totalNights">
+
+                                            0
+
+                                        </strong>
+
+                                    </div>
+
+                                    <hr>
+
+                                    <div
+                                        class="d-flex justify-content-between">
+
+                                        <span>
+
+                                            Total
+
+                                        </span>
+
+                                        <strong>
+
+                                            ₹<span id="totalPrice"></span>
+
+                                        </strong>
+
+                                    </div>
+
+                                </div>
+
+                                <button
+                                    class="btn btn-danger w-100 py-2">
+
+                                    Reserve Now
+
+                                </button>
+
+                                <p
+                                    class="text-muted small text-center mt-3 mb-0">
+
+                                    You won't be charged yet.
+
+                                </p>
+
+                            </form>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <% } %>
+
+                <!-- GUEST -->
+
+                <% if(isGuest){ %>
+
+                <div class="booking-sidebar">
+                    <div class="card border-0 shadow-sm rounded-4">
+                        <div class="card-body text-center p-4">
+                            <h3 class="fw-bold">
+                                ₹<%= listing.price.toLocaleString("en-IN") %>
+                            </h3>
+                            <p class="text-muted">
+                                per night
+                            </p>
+                            <hr>
+                            <p>
+                                Login to reserve this stay and write reviews.
+                            </p>
+                            <a
+                                href="/login"
+                                class="btn btn-dark w-100">
+                                Login
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <% } %>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===================================================== -->
+    <!-- REVIEWS -->
+    <!-- ===================================================== -->
+
+    <section class="show-section">
+
+        <div class="row justify-content-center">
+
+            <div class="col-lg-10">
+
+                <div
+                    class="d-flex justify-content-between align-items-center mb-4">
+
+                    <div>
+
+                        <h2 class="fw-bold mb-1">
+
+                            Guest Reviews
+
+                        </h2>
+
+                        <p class="text-muted mb-0">
+
+                            <%= listing.reviews.length %>
+
+                            review<%= listing.reviews.length!==1?"s":"" %>
+
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <% if(isLoggedIn && !isOwner){ %>
+                <div class="card border-0 shadow-sm rounded-4 mb-5">
+                    <div class="card-body p-4">
+                        <h4 class="fw-bold mb-4">
+                            Share your experience
+                        </h4>
+                        <form
+                            method="POST"
+                            action="/listings/<%= listing._id %>/review"
+                            class="needs-validation"
+                            novalidate>
+                                                        <div class="mb-4">
+
+                                <label class="form-label fw-semibold">
+
+                                    Rating
+
+                                </label>
+
+                                <fieldset class="starability-growRotate">
+
+                                    <input
+                                        type="radio"
+                                        id="no-rate"
+                                        class="input-no-rate"
+                                        name="review[rating]"
+                                        value="1"
+                                        checked
+                                        aria-label="No rating">
+
+                                    <input
+                                        type="radio"
+                                        id="first-rate1"
+                                        name="review[rating]"
+                                        value="1">
+
+                                    <label
+                                        for="first-rate1"
+                                        title="Terrible">
+
+                                        1 star
+
+                                    </label>
+
+                                    <input
+                                        type="radio"
+                                        id="first-rate2"
+                                        name="review[rating]"
+                                        value="2">
+
+                                    <label
+                                        for="first-rate2"
+                                        title="Not good">
+
+                                        2 stars
+
+                                    </label>
+
+                                    <input
+                                        type="radio"
+                                        id="first-rate3"
+                                        name="review[rating]"
+                                        value="3">
+
+                                    <label
+                                        for="first-rate3"
+                                        title="Average">
+
+                                        3 stars
+
+                                    </label>
+
+                                    <input
+                                        type="radio"
+                                        id="first-rate4"
+                                        name="review[rating]"
+                                        value="4">
+
+                                    <label
+                                        for="first-rate4"
+                                        title="Very Good">
+
+                                        4 stars
+
+                                    </label>
+
+                                    <input
+                                        type="radio"
+                                        id="first-rate5"
+                                        name="review[rating]"
+                                        value="5">
+
+                                    <label
+                                        for="first-rate5"
+                                        title="Amazing">
+
+                                        5 stars
+
+                                    </label>
+
+                                </fieldset>
+
+                            </div>
+
+
+
+                            <div class="mb-4">
+
+                                <label
+                                    for="comment"
+                                    class="form-label fw-semibold">
+                                    Review
+                                </label>
+
+                                <textarea
+                                    id="comment"
+                                    name="review[comment]"
+                                    rows="5"
+                                    class="form-control"
+                                    placeholder="Tell future guests about your stay..."
+                                    required></textarea>
+
+                                <div class="invalid-feedback">
+                                    Please write a review.
+                                </div>
+                            </div>
+                            <button
+                                class="btn btn-danger px-4">
+                                Submit Review
+                            </button>
+
+                        </form>
+
+                    </div>
+
+                </div>
+
+                <% } %>
+
+
+
+                <!-- EMPTY STATE -->
+
+                <% if(listing.reviews.length===0){ %>
+
+                <div class="card border-0 shadow-sm rounded-4">
+
+                    <div class="card-body text-center py-5">
+
+                        <i
+                            class="fa-regular fa-comment review-empty-icon"></i>
+
+                        <h4 class="mt-3">
+
+                            No reviews yet
+
+                        </h4>
+
+                        <p class="text-muted mb-0">
+
+                            Be the first guest to review this property.
+
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <% } %>
+
+
+
+                <!-- REVIEW LIST -->
+                
+                <div class="row g-4">
+                <% listing.reviews.forEach(review=>{ %>
+                <div class="col-lg-6">
+                <div class="card border-0 shadow-sm rounded-4 review-card mb-4">
+
+                    <div class="card-body p-4">
+
+                        <div
+                            class="d-flex justify-content-between">
+
+                            <div>
+
+                                <h6 class="fw-bold mb-1">
+
+                                    @<%= review.author.username %>
+
+                                </h6>
+
+                                <p
+                                    class="starability-result"
+                                    data-rating="<%= review.rating %>">
+
+                                </p>
+
+                            </div>
+
+                            <% if(isLoggedIn &&
+                                loggeduser._id.equals(review.author._id)){ %>
+
+                                <form
+                                    method="POST"
+                                    action="/listings/<%= listing._id %>/review/<%= review._id %>?_method=DELETE">
+
+                                    <button
+                                        class="btn btn-sm btn-outline-danger">
+
+                                        Delete
+
+                                    </button>
+
+                                </form>
+
+                            <% } %>
+
+                        </div>
+
+                        <p class="text-secondary mt-3 mb-0">
+
+                            <%= review.comment %>
+
+                        </p>
+
+                    </div>
+
+                </div>
+                </div>
+                <% }) %>
+                </div>
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- ===================================================== -->
+    <!-- LOCATION -->
+    <!-- ===================================================== -->
+
+    <section class="show-section">
+
+        <div class="row justify-content-center">
+
+            <div class="col-lg-10">
+
+                <div class="mb-4">
+
+                    <h2 class="fw-bold">
+
+                        Where you'll be
+
+                    </h2>
+
+                    <p class="text-muted mb-0">
+
+                        <i
+                            class="fa-solid fa-location-dot me-2"></i>
+
+                        <%= listing.location %>,
+                        <%= listing.country %>
+
+                    </p>
+
+                </div>
+
+                <div
+                    class="card border-0 shadow-sm rounded-4 overflow-hidden">
+
+                    <div id="map"></div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- ===================================================== -->
+    <!-- SIMILAR LISTINGS -->
+    <!-- ===================================================== -->
+
+    <% if(similarListings.length>0){ %>
+
+    <section class="show-section mb-5">
+
+        <div class="row justify-content-center">
+
+            <div class="col-xl-10">
+
+                <div class="mb-4">
+
+                    <h2 class="fw-bold">
+
+                        You may also like
+
+                    </h2>
+
+                    <p class="text-muted">
+
+                        Explore more stays similar to this property.
+
+                    </p>
+
+                </div>
+
+                <div class="row g-4">
+
+                    <% similarListings.forEach(similar=>{ %>
+                                            <div class="col-lg-4 col-md-6">
+
+                        <a
+                            href="/listings/<%= similar._id %>"
+                            class="text-decoration-none text-dark">
+
+                            <div class="card similar-card h-100 shadow-sm">
+
+                                <img
+                                    src="<%= similar.image.url %>"
+                                    class="card-img-top"
+                                    alt="<%= similar.title %>">
+
+                                <div class="card-body">
+
+                                    <span
+                                        class="badge bg-light text-dark border mb-2">
+
+                                        <%= similar.category %>
+
+                                    </span>
+
+                                    <h5 class="fw-bold mb-2">
+
+                                        <%= similar.title %>
+
+                                    </h5>
+
+                                    <p class="text-muted mb-3">
+
+                                        <i class="fa-solid fa-location-dot me-1"></i>
+
+                                        <%= similar.location %>,
+                                        <%= similar.country %>
+
+                                    </p>
+
+                                    <div
+                                        class="d-flex justify-content-between align-items-center">
+
+                                        <strong>
+
+                                            ₹<%= similar.price.toLocaleString("en-IN") %>
+
+                                        </strong>
+
+                                        <small class="text-muted">
+
+                                            / night
+
+                                        </small>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </a>
+
+                    </div>
+
+                    <% }) %>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <% } %>
+
+</div>
+
+<script src="/js/map.js"></script>
+<script src="/js/booking.js"></script>

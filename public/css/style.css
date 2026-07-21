@@ -1,0 +1,677 @@
+body{
+    background-color: white !important;
+    font-family: "Plus Jakarta Sans", sans-serif !important;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.container{
+    flex: 1;
+}
+
+.navbar{
+    background-color:white;
+    min-height:5rem;
+    box-shadow:0 2px 8px rgba(0,0,0,0.05);
+    z-index:1030;
+}
+
+.nav-link{
+    margin-right: 0.5rem !important;
+    border-radius:12px;
+    transition:0.2s ease;
+}
+
+.nav-link:hover{
+    background:#f7f7f7;
+    color:#222 !important;
+}
+
+/* .navbar-brand{
+    color: #fe424d;
+} */
+
+.fa-magnifying-glass-location{
+    color: #fe424d;
+    font-size: 1.7rem;
+    font-family: sans-serif;
+}
+
+.nav-link{
+    color: #222222 !important;
+}
+
+/* Footer Styling */
+.f-info{
+    background-color: #f8f9fa;
+}
+
+.f-info-links a{
+    text-decoration: none;
+    color: black;
+}
+
+.f-info-links a:hover{
+    text-decoration: underline;
+}
+
+.f-info-socials, .f-info-links ,.company{
+    width: 100%;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+}
+
+.f-info-socials i{
+    font-size: 1.1rem;
+    margin-left: 1rem;
+    /* display: flex; */
+
+}
+
+.f-info{
+    /* padding-top: 10px; */
+    /* padding-bottom: 80px; */
+    height: 7rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+/* Cards */
+
+.row{
+    margin-top: 2rem !important;
+}
+/* .listing-card {
+    border: none !important;
+    padding: 0.5rem;
+    margin-bottom: 2rem;
+} */
+.listing-card{
+    border:none !important;
+    border-radius:16px;
+    overflow:hidden;
+    transition:0.25s ease;
+    padding:0;
+    margin-bottom: 1.5rem;
+}
+.listing-card:hover{
+    transform:translateY(-4px);
+}
+
+.card-img-top{
+    /* border-radius: 1rem !important;
+    width: 100% !important;
+    object-fit: cover !important; */
+    transition:transform .3s ease;
+}
+/* Card effect */
+/* .card-img-overlay:hover {
+    opacity: 0.2;
+    background-color: white;
+} */
+
+.listing-card:hover .card-img-top{
+    transform:scale(1.03);
+}
+
+/* .card:hover {
+    border: solid black !important;
+    border-radius: 1.5rem;
+} */
+
+.card-text{
+    font-weight: 500;
+    font-size: large;
+}
+
+.booking-card{
+    position: sticky !important;
+    top: 100px;
+    border-radius:16px;
+}
+
+.show-listing-link{
+    text-decoration: none;
+    /* margin-bottom: 0.5rem; */
+}
+
+
+/* Add page and Edit page*/
+.add-btn, .edit-btn{
+    background-color: #fe424d !important; 
+    color: white !important;
+    border: none !important;
+}
+
+/* Show Image */
+.show-img{
+    width:100%;
+    height:420px;
+    object-fit:cover;
+    border-radius:16px;
+}
+
+.btns{
+    display: flex;
+}
+
+.show-card{
+    padding-left: 0;
+    padding-right: 0;
+}
+
+#map{
+    height: 400px;
+    width:100%;
+    border-radius: 16px ;
+}
+
+/* Discover more listings cards styling */
+.similar-card{
+    border:none;
+    border-radius:20px !important;
+    overflow:hidden;
+    transition:all 0.25s ease;
+    padding-bottom: 1rem;
+}
+
+.similar-card:hover{
+    transform:translateY(-6px);
+    box-shadow:0 12px 30px rgba(0,0,0,0.12);
+}
+
+.similar-card img{
+    transition:transform 0.35s ease;
+}
+
+.similar-card:hover img{
+    transform:scale(1.04);
+}
+
+/* responsiveness for show listing */
+@media (max-width:991px){
+    .show-img{
+        height:300px;
+    }
+    .booking-card{
+        position:static;
+        margin-top:2rem;
+    }
+}
+
+/* Show Listing */
+.booking-card{
+    transition:0.25s ease;
+}
+
+.booking-card:hover{
+    box-shadow:0 12px 30px rgba(0,0,0,.08);
+}
+
+.show-card{
+    border-radius:16px;
+}
+
+.show-card .card-body{
+    padding:1.4rem !important;
+}
+
+.booking-card .card-body{
+    padding:1.4rem !important;
+}
+
+/* My Bookings page,Wishlist page */
+.booking-history-page .card,
+.wishlist-page .card{
+    transition:.25s ease;
+}
+
+.booking-history-page .card:hover,
+.wishlist-page .card:hover{
+    transform:translateY(-4px);
+}
+
+.booking-history-page img,
+.wishlist-page img{
+    height:240px;
+    width:100%;
+    object-fit:cover;
+}
+
+/* add,edit listings , login,signup pages */
+.form-page .card{
+    border-radius:20px;
+}
+
+.form-page label{
+    font-weight:600;
+}
+
+.form-page .form-control,
+.form-page .form-select{
+    border-radius:10px;
+}
+
+.form-page textarea{
+    resize:vertical;
+}
+
+.form-page .btn{
+    border-radius:10px;
+}
+
+/* ==========================================================
+   SHOW PAGE
+========================================================== */
+
+.show-page{
+    max-width: 1350px;
+}
+
+/* ----------------------------------------------------------
+Hero
+---------------------------------------------------------- */
+
+.listing-hero{
+    margin-bottom:2rem;
+}
+
+.listing-hero h1{
+    letter-spacing:-0.5px;
+}
+
+.wishlist-btn{
+    width:48px;
+    height:48px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size:1.1rem;
+}
+
+
+/* ----------------------------------------------------------
+Listing Card
+---------------------------------------------------------- */
+
+.listing-card{
+    overflow:hidden;
+    border-radius:20px;
+}
+
+.show-img{
+    width:100%;
+    height:520px;
+    object-fit:cover;
+}
+
+.listing-card section{
+    margin-bottom:.5rem;
+}
+
+.listing-card hr{
+    margin:1.6rem 0;
+}
+
+
+/* ----------------------------------------------------------
+Host
+---------------------------------------------------------- */
+
+.host-avatar{
+    width:60px;
+    height:60px;
+
+    border-radius:50%;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    background:#f8f9fa;
+
+    font-size:1.4rem;
+
+    color:#dc3545;
+}
+
+
+/* ----------------------------------------------------------
+Detail Boxes
+---------------------------------------------------------- */
+
+.detail-box{
+
+    display:flex;
+
+    align-items:flex-start;
+
+    gap:15px;
+
+    padding:18px;
+
+    border-radius:14px;
+
+    background:#fafafa;
+
+    transition:.25s;
+}
+
+.detail-box:hover{
+
+    background:white;
+
+    transform:translateY(-2px);
+
+    box-shadow:0 8px 20px rgba(0,0,0,.08);
+
+}
+
+.detail-icon{
+
+    font-size:1.2rem;
+
+    color:#dc3545;
+
+    margin-top:3px;
+
+}
+
+
+/* ----------------------------------------------------------
+Owner Dashboard
+---------------------------------------------------------- */
+
+.owner-sidebar{
+    position: sticky !important;
+    top:100px;
+}
+
+.owner-icon{
+
+    width:80px;
+
+    height:80px;
+
+    margin:auto;
+
+    border-radius:50%;
+
+    background:#fff3f3;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    font-size:2rem;
+
+    color:#dc3545;
+
+}
+
+.dashboard-item{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    padding:12px 0;
+
+    border-bottom:1px solid #efefef;
+
+}
+
+.dashboard-item:last-child{
+
+    border-bottom:none;
+
+}
+
+
+/* ----------------------------------------------------------
+Booking Sidebar
+---------------------------------------------------------- */
+
+.booking-sidebar{
+    position: sticky !important;
+    top: 90px;
+    align-self:flex-start;
+}
+
+.booking-sidebar .card{
+    border-radius:20px;
+}
+
+.booking-sidebar .form-control,
+
+.booking-sidebar .form-select{
+    border-radius:10px;
+}
+
+.booking-sidebar button{
+    border-radius:12px;
+}
+
+/* ----------------------------------------------------------
+Booking Summary
+---------------------------------------------------------- */
+
+#bookingSummary{
+
+    border:none!important;
+
+    background:#f8f9fa!important;
+
+}
+
+
+/* ----------------------------------------------------------
+Reviews
+---------------------------------------------------------- */
+
+
+
+/* ----------------------------------------------------------
+Map
+---------------------------------------------------------- */
+
+#map{
+
+    border-radius:18px;
+
+    overflow:hidden;
+
+    box-shadow:0 10px 30px rgba(0,0,0,.08);
+
+}
+
+
+/* ----------------------------------------------------------
+Similar Listings
+---------------------------------------------------------- */
+
+.similar-card{
+
+    border:none;
+
+    border-radius:18px;
+
+    overflow:hidden;
+
+    transition:.3s;
+
+}
+
+.similar-card:hover{
+
+    transform:translateY(-6px);
+
+    box-shadow:0 18px 40px rgba(0,0,0,.12);
+
+}
+
+.similar-card img{
+
+    transition:.35s;
+
+}
+
+.similar-card:hover img{
+
+    transform:scale(1.04);
+
+}
+
+
+/* ----------------------------------------------------------
+Buttons
+---------------------------------------------------------- */
+
+.btn{
+
+    border-radius:10px;
+
+}
+
+
+/* ----------------------------------------------------------
+Responsive
+---------------------------------------------------------- */
+
+@media(max-width:992px){
+
+    .show-img{
+
+        height:380px;
+
+    }
+
+    .booking-sidebar,
+
+    .owner-sidebar{
+        position:sticky !important;
+        top:auto;
+        margin-top:25px;
+    }
+
+}
+
+@media(max-width:768px){
+
+    .show-img{
+
+        height:280px;
+
+    }
+
+    .detail-box{
+
+        padding:15px;
+
+    }
+
+    .listing-hero h1{
+
+        font-size:2rem;
+
+    }
+
+}
+
+/* ======================================================
+REVIEWS
+====================================================== */
+
+.review-empty-icon{
+    font-size:4rem;
+    color:#dc3545;
+    opacity:.25;
+}
+
+.review-card{
+    transition:.25s;
+}
+
+.review-card:hover{
+    transform:translateY(-4px);
+}
+
+.review-card h6{
+    margin-bottom:4px;
+}
+/* =======================================================
+MAP
+======================================================= */
+
+#map{
+
+    height:420px;
+
+    width:100%;
+
+    border-radius:20px;
+
+}
+
+/* =======================================================
+SIMILAR LISTINGS
+======================================================= */
+
+.similar-card{
+
+    border:none;
+
+    border-radius:20px;
+
+    overflow:hidden;
+
+    transition:.3s;
+
+    cursor:pointer;
+
+}
+
+.similar-card:hover{
+
+    transform:translateY(-8px);
+
+    box-shadow:0 18px 40px rgba(0,0,0,.12);
+
+}
+
+.similar-card img{
+
+    height:240px;
+
+    object-fit:cover;
+
+    transition:.4s;
+
+}
+
+.similar-card:hover img{
+
+    transform:scale(1.05);
+
+}
+
+.similar-card .card-body{
+
+    padding:1.2rem;
+
+}
+
+.similar-card strong{
+
+    font-size:1.1rem;
+
+}

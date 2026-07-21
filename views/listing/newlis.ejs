@@ -1,0 +1,87 @@
+<% layout("/layouts/boilerplate") %>
+
+    <body>
+        <div class="row justify-content-center">
+
+            <div class="col-12 col-md-10 col-lg-8 col-xl-7">
+
+                <div class="card border-0 shadow-sm rounded-4">
+
+                    <div class="card-body p-4 p-md-5">
+                        <form method="POST" action="/listings" novalidate class="needs-validation"
+                            enctype="multipart/form-data">
+                            <h2 class="fw-bold mb-2">
+                                Host a New Stay
+                            </h2>
+
+                            <p class="text-muted mb-4">
+                                Share your property with travelers around the world.
+                            </p>
+                            <div class="row">
+                                <div class="mb-3 col-md-9">
+                                    <label for="title" class="form-label"><b>Title</b></label>
+                                    <input type="text" name="listing[title]" class="form-select"
+                                        placeholder="enter the name of your listing" required>
+                                    <div class="invalid-feedback">No name for your property? Thats wierd!</div>
+                                </div>
+                                <div class="mb-3 col-md-3">
+                                    <label class="form-label">Category</label>
+                                    <select name="listing[category]" class="form-select">
+                                        <option>Farms</option>
+                                        <option>Rooms</option>
+                                        <option>Amazing Views</option>
+                                        <option>Iconic Cities</option>
+                                        <option>Surfing</option>
+                                        <option>Amazing Pools</option>
+                                        <option>Beach</option>
+                                        <option>Cabins</option>
+                                        <option>OMG!</option>
+                                        <option>Lakefront</option>
+                                    </select>
+                                </div>
+
+                            </div>
+                            <div class="mb-3">
+                                <label for="description" class="form-label">Description</label>
+                                <textarea type="text" name="listing[description]" class="form-select" rows="5"
+                                    placeholder="provide the description of your listing" required></textarea>
+                                <div class="invalid-feedback">Say something about your property</div>
+                            </div>
+                            <div class="row">
+                                <div class="mb-3 col-md-8">
+                                    <label for="image" class="form-label">Upload Image</label>
+                                    <input type="file" name="listing[image]" class="form-select form-select-lg" required>
+                                </div>
+                                <div class="mb-3 col-md-4">
+                                    <label for="Price" class="form-label">Price</label>
+                                    <input type="number" name="listing[price]" class="form-select"
+                                        placeholder="mention the price of your listing" required>
+                                    <div class="invalid-feedback">C'mon! you gotta earn for your place</div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="mb-3 col-md-6">
+                                    <label for="Location" class="form-label">Location</label>
+                                    <input type="text" name="listing[location]" class="form-select"
+                                        placeholder="enter the location of your listing" required>
+                                    <div class="invalid-feedback">Let people know where your heaven is</div>
+                                </div>
+                                <div class="mb-3 col-md-6">
+                                    <label for="country" class="form-label">Country</label>
+                                    <input type="text" name="listing[country]" class="form-select"
+                                        placeholder="enter the country of your listing" required>
+                                    <div class="invalid-feedback">Whats that beautiful country which is having your
+                                        beautiful
+                                        property</div>
+                                </div>
+                            </div>
+                            <br>
+                            <button class="btn add-btn w-100 py-2 fw-semibold">Add</button>
+                            <br>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br><br>
+    </body>

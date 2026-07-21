@@ -1,0 +1,96 @@
+<div class="section mb-5">
+
+    <div class="d-flex justify-content-between align-items-center mb-3">
+
+        <h3>⭐ Recent Reviews</h3>
+
+    </div>
+
+    <% if(reviews.length === 0){ %>
+
+        <div class="card shadow-sm border-0">
+
+            <div class="card-body text-center py-5">
+
+                <i class="fa-regular fa-star fs-1 text-secondary mb-3"></i>
+
+                <h5>No reviews written yet.</h5>
+
+                <p class="text-muted">
+
+                    Share your experience after your first stay.
+
+                </p>
+
+                <a href="/listings"
+                   class="btn btn-danger">
+
+                    Explore Listings
+
+                </a>
+
+            </div>
+
+        </div>
+
+    <% } else { %>
+
+        <div class="row">
+
+            <% reviews.slice(0,3).forEach(review => { %>
+
+                <div class="col-lg-4 col-md-6 mb-4">
+
+                    <div class="card shadow-sm border-0 h-100 review-card">
+
+                        <div class="card-body d-flex flex-column">
+
+                            <div class="mb-3">
+
+                                <% for(let i=0;i<review.rating;i++){ %>
+
+                                    <i class="fa-solid fa-star text-warning"></i>
+
+                                <% } %>
+
+                            </div>
+
+                            <blockquote class="blockquote flex-grow-1">
+
+                                <p class="fs-6">
+
+                                    "<%= review.comment %>"
+
+                                </p>
+
+                            </blockquote>
+
+                            <footer class="blockquote-footer mt-3">
+
+                                on
+
+                                <a
+                                    href="/listings/<%= review.listing._id %>"
+                                    class="text-decoration-none"
+                                    style="color: #fe424d;"
+                                >
+
+                                    <%= review.listing.title %>
+
+                                </a>
+
+                            </footer>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            <% }) %>
+
+        </div>
+
+    <% } %>
+
+</div>
