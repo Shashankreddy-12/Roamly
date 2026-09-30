@@ -33,7 +33,7 @@ const wishlistRoutes = require("./routes/wishlist");
 const profileRoutes = require("./routes/profile");
 const mylistingsRoute = require("./routes/mylistings");
 
-const mongoUrl = process.env.MONGO_URL || "mongodb://127.0.0.1:27017/airdnd";
+const mongoUrl = process.env.MONGO_URL || "mongodb://127.0.0.1:27017/roamly";
 const port = Number(process.env.PORT) || 1202;
 
 app.set("view engine","ejs");
@@ -91,21 +91,21 @@ const informationPages = {
     "/privacy": {
         title: "Privacy",
         paragraphs: [
-            "Airdnd is a portfolio project. Please do not submit sensitive personal information.",
+            "Roamly is a portfolio project. Please do not submit sensitive personal information.",
             "A reviewed privacy policy must be published before any public commercial launch."
         ]
     },
     "/terms": {
         title: "Terms of Use",
         paragraphs: [
-            "Airdnd is currently provided as a demonstration application.",
+            "Roamly is currently provided as a demonstration application.",
             "Formal terms of use are required before accepting public users or payments."
         ]
     },
     "/compdetails": {
         title: "Company Details",
         paragraphs: [
-            "Airdnd is an educational portfolio project and is not a registered accommodation provider.",
+            "Roamly is an educational portfolio project and is not a registered accommodation provider.",
             "Company and support details must be added before a commercial launch."
         ]
     }
@@ -158,7 +158,7 @@ async function startServer() {
         await mongoose.connect(mongoUrl);
         console.log("DB connected successfully.");
         app.listen(port, () => {
-            console.log(`Port ${port} is connected to Airdnd website`);
+            console.log(`Port ${port} is connected to Roamly website`);
         });
     } catch (error) {
         console.error("Unable to connect to the database:", error);

@@ -14,7 +14,7 @@ module.exports.postsignup = async(req,res,next)=>{
             if(err){
                 return next(err);
             }
-            req.flash("success",`Welcome to Airdnd  ${username}`);
+            req.flash("success",`Welcome to Roamly  ${username}`);
             res.redirect("/listings");
         })
         

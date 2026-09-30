@@ -9,8 +9,8 @@ if (process.env.NODE_ENV !== "production") {
     require("dotenv").config();
 }
 
-const mongoUrl = process.env.MONGO_URL || "mongodb://127.0.0.1:27017/airdnd";
-const seedUsername = "airdnd-demo-host";
+const mongoUrl = process.env.MONGO_URL || "mongodb://127.0.0.1:27017/roamly";
+const seedUsername = "roamly-demo-host";
 
 async function getSeedOwner() {
     let owner = await User.findOne({ username: seedUsername });
@@ -20,7 +20,7 @@ async function getSeedOwner() {
 
     owner = new User({
         username: seedUsername,
-        email: "demo.host@airdnd.local"
+        email: "demo.host@roamly.local"
     });
 
     return User.register(

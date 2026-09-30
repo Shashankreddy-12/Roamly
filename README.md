@@ -1,8 +1,8 @@
-# Airdnd 
+# Roamly 
 
 An Airbnb-inspired vacation rental platform built with the MERN stack to explore authentication, booking management, interactive maps, and cloud-based image uploads.
 
-[Live Demo](https://airdnd-iqf9.onrender.com) | [GitHub Repository](https://github.com/Shashankreddy-12/Airdnd)
+[Live Demo](https://roamly-iqf9.onrender.com) | [GitHub Repository](https://github.com/Shashankreddy-12/Roamly)
 
 ![Node.js](https://img.shields.io/badge/Node.js-339933?style=flat&logo=nodedotjs&logoColor=white)
 ![Express.js](https://img.shields.io/badge/Express.js-000000?style=flat&logo=express&logoColor=white)
@@ -40,7 +40,7 @@ An Airbnb-inspired vacation rental platform built with the MERN stack to explore
 
 ##  Overview
 
-Airdnd is a full-stack accommodation rental web application inspired by Airbnb, built to explore core web engineering patterns in the Node.js and Express ecosystem. The application enables users to discover rental properties, host their own venues, manage bookings, write reviews, and maintain personal wishlists.
+Roamly is a full-stack accommodation rental web application inspired by Airbnb, built to explore core web engineering patterns in the Node.js and Express ecosystem. The application enables users to discover rental properties, host their own venues, manage bookings, write reviews, and maintain personal wishlists.
 
 The backend leverages Express routing and MongoDB for document persistence, while EJS templates render responsive views. The project focuses on secure authentication, authorization, booking validation, and third-party API integration while following the MVC architecture.
 
@@ -102,7 +102,7 @@ The backend leverages Express routing and MongoDB for document persistence, whil
 ##  Running Locally
 
 ```bash
-git clone https://github.com/Shashankreddy-12/Airdnd.git && cd Airdnd
+git clone https://github.com/Shashankreddy-12/Roamly.git && cd Roamly
 npm install
 # Configure .env with MONGO_URL, SECRET_CODE, MAP_TOKEN, CLOUDINARY_CLOUD_NAME, CLOUDINARY_KEY, CLOUDINARY_SECRET
 npm run seed  # Optional: Seed sample database listings

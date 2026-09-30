@@ -44,11 +44,15 @@ async function removeCloudinaryImage(publicId) {
     }
 }
 
+function isSeedListingImage(publicId) {
+    return publicId === "listingimage" || publicId?.startsWith("roamly_DEV/seed-listings/");
+}
+
 function uploadImageToCloudinary(file) {
     return new Promise((resolve, reject) => {
         const uploadStream = cloudinary.uploader.upload_stream(
             {
-                folder: "airdnd_DEV",
+                folder: "roamly_DEV",
                 resource_type: "image",
                 allowed_formats: ["jpg", "jpeg", "png", "webp"]
             },
@@ -282,7 +286,7 @@ module.exports.updateeditlisting = async (req, res) => {
         throw error;
     }
 
-    if (req.file && previousImageFilename && previousImageFilename !== "listingimage") {
+    if (req.file && previousImageFilename && !isSeedListingImage(previousImageFilename)) {
         await removeCloudinaryImage(previousImageFilename);
     }
 
@@ -304,7 +308,7 @@ module.exports.destroylisting = async (req, res) => {
         User.updateMany({}, { $pull: { wishlist: listing._id } })
     ]);
 
-    if (listing.image?.filename && listing.image.filename !== "listingimage") {
+    if (listing.image?.filename && !isSeedListingImage(listing.image.filename)) {
         await removeCloudinaryImage(listing.image.filename);
     }
 

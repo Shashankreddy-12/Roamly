@@ -385,8 +385,16 @@ if (sampleListings.length !== listingMetadata.length) {
   throw new Error("Each sample listing must have category and coordinate metadata.");
 }
 
+const cloudinarySeedImageBaseUrl =
+  "https://res.cloudinary.com/drseus8yz/image/upload/roamly_DEV/seed-listings";
+
 const data = sampleListings.map((listing, index) => ({
   ...listing,
+  image: {
+    ...listing.image,
+    // Seed listings are served from Cloudinary rather than Unsplash.
+    url: `${cloudinarySeedImageBaseUrl}/${String(index + 1).padStart(2, "0")}.jpg`
+  },
   category: listingMetadata[index].category,
   geometry: {
     type: "Point",
